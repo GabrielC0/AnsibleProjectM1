@@ -1,0 +1,16 @@
+---
+all:
+  children:
+    # Groupe d'hôtes pour l'installation de GitLab
+    gitlab:
+      hosts:
+        192.168.23.128:
+          ansible_user: root
+          ansible_python_interpreter: /usr/bin/python3
+
+    # Groupe d'hôtes pour la base de données (PostgreSQL, MySQL, etc.)
+    database:
+      hosts:
+        192.168.23.128:
+          ansible_user: root
+          ansible_python_interpreter: /usr/bin/python3

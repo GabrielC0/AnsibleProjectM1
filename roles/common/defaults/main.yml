@@ -1,0 +1,6 @@
+packages:
+  # Liste des paquets à installer pour configurer et gérer le système
+  - name: apt-transport-https
+  - name: curl
+  - name: net-tools
+  - name: dnsutils

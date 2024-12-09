@@ -1,0 +1,7 @@
+- name: Redémarrer PostgreSQL
+  # Nom de la tâche, utilisée pour décrire ce que cette étape fait
+  ansible.builtin.service:
+    # Nom du service à gérer
+    name: postgresql
+    # État désiré pour le service (ici, redémarrage)
+    state: restarted

@@ -1,0 +1,7 @@
+packages_postgresql:
+  # Nom du paquet principal PostgreSQL
+  - name: postgresql
+  # Nom du paquet ajoutant des extensions supplémentaires pour PostgreSQL
+  - name: postgresql-contrib
+  # Paquet Python pour interagir avec PostgreSQL via la bibliothèque psycopg2
+  - name: python3-psycopg2

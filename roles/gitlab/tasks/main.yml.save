@@ -1,0 +1,35 @@
+---
+
+- name: Install and configure GitLab CE
+  hosts: all
+  become: true
+  tasks:
+    - name: Add GitLab GPG key
+      apt_key:
+        url: https://packages.gitlab.com/gpg.key
+        state: present
+
+    - name: Add GitLab package repository
+      apt_repository:
+        repo: "deb https://packages.gitlab.com/gitlab/gitlab-ce/ubuntu focal main"
+        state: present
+
+    - name: Update APT package cache
+      apt:
+        update_cache: yes
+
+    - name: Install GitLab CE
+      apt:
+        name: gitlab-ce
+        state: present
+
+    - name: Reconfigure GitLab
+      command: gitlab-ctl reconfigure
+      notify:
+        - restart_gitlab
+
+  handlers:
+    - name: restart_gitlab
+      service:
+        name: gitlab
+        state: restarted

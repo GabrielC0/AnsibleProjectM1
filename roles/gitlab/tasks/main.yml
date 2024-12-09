@@ -1,0 +1,25 @@
+- name: Add GitLab GPG key
+  # Ajoute la clé GPG officielle de GitLab pour vérifier l'intégrité des paquets
+  apt_key:
+    url: https://packages.gitlab.com/gpg.key # URL de la clé GPG GitLab
+    state: present
+
+- name: Add GitLab package repository
+  # Ajoute le dépôt GitLab CE (Community Edition) au gestionnaire de paquets APT
+  apt_repository:
+    repo: "deb https://packages.gitlab.com/gitlab/gitlab-ce/ubuntu/ focal main" # Dépôt GitLab pour Ubuntu focal
+    state: present
+
+- name: Update APT package cache
+  # Met à jour le cache APT après avoir ajouté le dépôt GitLab
+  apt:
+    update_cache: yes # Actualise la liste des paquets disponibles
+
+- name: Install GitLab
+  # Installe le paquet GitLab Community Edition
+  apt:
+    name: gitlab-ce
+    state: present
+
+- name: Reconfigure GitLab
+  command: gitlab-ctl reconfigure

@@ -1,0 +1,12 @@
+---
+# Playbook pour déployer et configurer GitLab avec une base de données
+
+- hosts: gitlab
+  become: yes
+
+  vars_files:
+    - roles/gitlab/vars/main.yml
+
+  roles:
+    - bdd
+    - gitlab

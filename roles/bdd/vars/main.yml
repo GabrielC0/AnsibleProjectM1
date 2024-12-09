@@ -1,0 +1,7 @@
+packages_postgresql:
+  # Liste des paquets nécessaires pour configurer PostgreSQL et ses dépendances
+  - name: postgresql
+  - name: postgresql-contrib
+  - name: python3-psycopg2
+
+postgresql_version: 13

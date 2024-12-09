@@ -1,0 +1,14 @@
+# Configuration GitLab pour la base de données PostgreSQL
+
+# URL d'accès à GitLab
+external_url "http://{{ root }}"  
+
+# Configuration de la base de données PostgreSQL
+gitlab_rails['db_adapter'] = "postgresql"  # Utilisation de PostgreSQL comme adaptateur de base de données.
+gitlab_rails['db_encoding'] = "unicode"  # Encodage de la base de données.
+gitlab_rails['db_database'] = "gitlabhq_production"  # Nom de la base de données GitLab.
+gitlab_rails['db_pool'] = 10  # Taille du pool de connexions à la base de données.
+gitlab_rails['db_username'] = "gitlab"  # Nom d'utilisateur pour se connecter à la base de données.
+gitlab_rails['db_password'] = "{{ Espoir15! }}"  # Mot de passe pour l'utilisateur de la base de données (utilisation d'une variable).
+gitlab_rails['db_host'] = "{{ db_host }}"  # Hôte de la base de données (utilisation d'une variable).
+

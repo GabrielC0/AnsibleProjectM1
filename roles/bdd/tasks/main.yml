@@ -1,0 +1,55 @@
+- name: Installer le module psycopg2 pour Python
+  # Installe le paquet python3-psycopg2 pour permettre l'interaction entre Python et PostgreSQL
+  ansible.builtin.package:
+    name: python3-psycopg2
+    state: present
+
+- name: Installer PostgreSQL
+  # Installe le serveur PostgreSQL
+  ansible.builtin.package:
+    name: postgresql
+    state: present
+
+- name: Démarrer et activer le service PostgreSQL
+  # Démarre PostgreSQL et configure son démarrage automatique au boot
+  ansible.builtin.service:
+    name: postgresql
+    state: started
+    enabled: yes
+
+- name: Configurer l'authentification par mot de passe pour l'utilisateur postgres
+  # Modifie le fichier de configuration pg_hba.conf pour utiliser l'authentification par mot de passe (md5) au lieu de "peer"
+  ansible.builtin.lineinfile:
+    path: /etc/postgresql/15/main/pg_hba.conf
+    regexp: '^local\s+all\s+postgres\s+peer'
+    line: "local all postgres md5"
+    state: present
+  notify: Redémarrer PostgreSQL
+
+- name: Configurer le superutilisateur postgres avec un mot de passe
+  # Définit un mot de passe pour l'utilisateur PostgreSQL par défaut "postgres"
+  ansible.builtin.postgresql_user:
+    name: postgres
+    password: "postgrespassword1"
+    state: present
+    login_user: postgres
+    login_password: "postgrespassword1"
+
+- name: Créer la base de données
+  # Crée une base de données nommée "root"
+  ansible.builtin.postgresql_db:
+    name: root
+    state: present
+    login_user: postgres
+    login_password: "postgrespasswordroot24"
+
+- name: Créer un utilisateur pour la base de données
+  # Crée un utilisateur nommé "root" avec un mot de passe et lui donne tous les privilèges sur la base "root"
+  ansible.builtin.postgresql_user:
+    name: root
+    password: "Espoir15!"
+    priv: "ALL"
+    db: root
+    state: present
+    login_user: postgres
+    login_password: "postgrespasswordroot75"

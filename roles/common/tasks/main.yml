@@ -1,0 +1,13 @@
+- name: Install packages
+  # Installe les paquets spécifiés dans la liste "packages"
+  apt:
+    name: "{{ item.name }}"
+    state: present
+    update_cache: yes
+  with_items: "{{ packages | default([]) }}"
+  # Boucle sur les éléments de la liste "packages"
+
+- name: Add user
+  # Crée un utilisateur système nommé "harry"
+  user:
+    name: harry
